@@ -63,8 +63,8 @@
 
 ## One-Time Pad
 - **Invented by Vernam (1917)**: Provides perfect secrecy if used correctly.
-- Encryption: \( E(m, k) = m \oplus k \)
-- Decryption: \( D(c, k) = c \oplus k \)
+- Encryption:$( E(m, k) = m \oplus k)$
+- Decryption: $( D(c, k) = c \oplus k )$
 - **Drawback**: The key must be as long as the message and cannot be reused.
 
 ## Certificates and Public Key Infrastructure (PKI)

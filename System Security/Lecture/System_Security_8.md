@@ -18,6 +18,8 @@
   - `getfacl`: Check ACLs.
   - `setfacl -m`: Modify/add ACLs for users or groups.
 
+![[Pasted image 20241119144530.png]]
+
 ---
 
 ### User Identifiers (UIDs) and Process Ownership

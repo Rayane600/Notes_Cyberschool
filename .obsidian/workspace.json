@@ -1,0 +1,194 @@
+{
+  "main": {
+    "id": "a5362f5df8e7dfdc",
+    "type": "split",
+    "children": [
+      {
+        "id": "5b957dd27314b298",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a3529ef7ce6d818d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Network Security/Lab_Reports/TP5.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "TP5"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "19eb3ec0bced9a50",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fbe1cc3f4edf1f3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b3b9c16b64179f44",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "b9435c44ec5d8ae1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "8a0512f6c3770fc5",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "93c79a0e99957f8c",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fe11276f8091295",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9ed06d49e7574e85",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "BC/BC_1.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for BC_1"
+            }
+          },
+          {
+            "id": "57aa996f62c35484",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "BC/BC_1.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from BC_1"
+            }
+          },
+          {
+            "id": "6b79da3fc7ae5a97",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "23f4aacad5626a5b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "BC/BC_1.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of BC_1"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "b3b9c16b64179f44",
+  "lastOpenFiles": [
+    "Network Security/Lab_Reports/TP6.md",
+    "ACF/Lectures/ACF_4.md",
+    "System Security/Lecture/System_Security_8.md",
+    "System Security/Lecture/Pasted image 20241119144530.png",
+    "System Security/Lecture/System_Security_7.md",
+    "System Security/TD/TD7.md",
+    "System Security/TD/TD6.md",
+    "Network Security/TD/TD2.md",
+    "Network Security/Lab_Reports/TP5.md",
+    "Network Security/Lab_Reports/TP4.md",
+    "MSEC/TP/Consignes_TP6.md",
+    "MSEC/TP/Consignes_TP5.md",
+    "MSEC/TP/Consignes_TP4.md",
+    "System Security/TD/TD5.md",
+    "System Security/Lab_Sessions/Lab_Session_5.md",
+    "System Security/Presentation of a paper.md",
+    "System Security/Lecture/System_Security_9.md",
+    "System Security/Lecture/System_Security_4.md",
+    "System Security/Lecture/System_Security_2.md",
+    "System Security/Lecture/System_Security_1.md",
+    "BC/BC_3.md",
+    "BC/BC_2.md",
+    "BC/BC_1.md",
+    "Low Level Programming/Lectures/LLP_7.md",
+    "Network Security/Lab_Reports/TP3.md",
+    "ACF/Lectures/ACF_1.md"
+  ]
+}

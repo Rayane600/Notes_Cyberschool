@@ -1,3 +1,10 @@
+
+---
+
+Galmel Yann
+Jelidi--Daniel Rayane
+
+---
 ### Part I: Playing with DNS
 
 **Question 1:**  
@@ -137,14 +144,10 @@ import dns.message
 import socket
 import urllib.request
 import json
-
-# Local DNS server configuration (to listen on localhost)
 DNS_LOCALRSL = ("127.0.0.1", 53)
 
-# DNS-over-HTTPS server URL (example using Cloudflare’s DoH server)
 DOH_SERVER_URL = "https://cloudflare-dns.com/dns-query"
 
-# Set up a UDP socket to listen for incoming DNS requests
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind(DNS_LOCALRSL)
 
@@ -154,27 +157,20 @@ print("Use `dig example.org @127.0.0.1` to test")
 def forward_to_doh(dns_query_data):
     """Forwards the DNS query to a DoH server and returns the response."""
     
-    # Construct the DNS query message from the raw data
     req = dns.message.from_wire(dns_query_data)
-    
-    # Convert the DNS query into an HTTP/HTTPS compatible payload
+
     query_wire = req.to_wire()
     
-    # Create an HTTP POST request for DoH
     headers = {
-        "Content-Type": "application/dns-message",  # Required header for DoH
+        "Content-Type": "application/dns-message", 
         "Accept": "application/dns-message"
     }
-    
-    # Wrap the request in urllib for an HTTPS POST
     http_req = urllib.request.Request(
         DOH_SERVER_URL, 
         data=query_wire, 
         headers=headers,
         method="POST"
     )
-    
-    # Send the request over HTTPS and read the response
     try:
         with urllib.request.urlopen(http_req) as response:
             doh_response_data = response.read()
@@ -185,27 +181,19 @@ def forward_to_doh(dns_query_data):
 
 try:
     while True:
-        # Receive a DNS query from the client
         data, client_addr = s.recvfrom(1024)
         print(f"Received DNS query from {client_addr}")
-        
-        # Forward the query to the DoH server and receive the response
-        doh_response_data = forward_to_doh(data)
-        
+        doh_response_data = forward_to_doh(data) 
         if doh_response_data:
-            # Send the response back to the client
             s.sendto(doh_response_data, client_addr)
             print(f"Sent response back to {client_addr}")
         else:
             print("Failed to retrieve response from DoH server")
-
 except KeyboardInterrupt:
     print("Shutting down server...")
-
 finally:
     s.close()
     print("Server closed.")
-
 ```
 
 **Question 17:**  

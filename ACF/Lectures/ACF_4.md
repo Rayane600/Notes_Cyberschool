@@ -27,4 +27,4 @@
 - Example usage: `sledgehammer [timeout=120]`
 ---
 
-  
+ <

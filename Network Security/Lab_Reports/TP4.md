@@ -197,4 +197,4 @@ we can spoof a TCP client and try to perform actions like opening a connection. 
    ```
 
 ---
-**Note : Some of the answers on this report were given out of simple internet research without direct testing since we didn't have time to finish the lab in class **
+**Note : Some of the answers on this report were given out of simple internet research without direct testing since we didn't have time to finish the lab in class 

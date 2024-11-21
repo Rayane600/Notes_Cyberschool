@@ -68,4 +68,4 @@ The second one is more secure since it will fail if the authentication fails the
 
 ## Q11.
 1. too short
-2. 
+

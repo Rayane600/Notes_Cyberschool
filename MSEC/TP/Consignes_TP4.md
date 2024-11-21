@@ -35,3 +35,5 @@ Pour lire les bits de gauche à droite, c'est-à-dire du plus significatif au mo
 i = WORD-1; /* bit le plus significatif */
 bi = (ei >> i) & 1; /* bit i */
 ```
+
+
