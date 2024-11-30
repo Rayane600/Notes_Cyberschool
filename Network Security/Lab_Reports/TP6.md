@@ -8,75 +8,115 @@ Jelidi--Daniel Rayane
 ### Network Security TP 6-7 Report
 
 ---
+###  Part I: Services and Ports
 
-#### Part I: Services and Ports
+#### **Question 1: Reserved ports and protocols**
 
-1. **Question 1:** Reserved ports and protocols:
+- **HTTP**: Port 80 (TCP)
+- **HTTPS**: Port 443 (TCP)
+- **DNS**: Port 53 (TCP/UDP)
+- **SSH**: Port 22 (TCP)
+- **SMTP**: Port 25 (TCP)
+- **SMTPS**: Port 465 (TCP) for secure submission
+- **POP3**: Port 110 (TCP)
+- **POP3S**: Port 995 (TCP)
+- **IMAP**: Port 143 (TCP)
+- **IMAPS**: Port 993 (TCP)
+- **FTP Command**: Port 21 (TCP)
+- **FTP Data**: Port 20 (TCP)
 
-   - **HTTP**: Port 80 (TCP)
-   - **HTTPS**: Port 443 (TCP)
-   - **DNS**: Port 53 (TCP/UDP)
-   - **SSH**: Port 22 (TCP)
-   - **SMTP**: Port 25 (TCP), **SMTPS**: Port 465 (TCP) for secure submission
-   - **POP3**: Port 110 (TCP), **POP3S**: Port 995 (TCP)
-   - **IMAP**: Port 143 (TCP), **IMAPS**: Port 993 (TCP)
-   - **FTP**: Command Port 21 (TCP), Data Port 20 (TCP)
+#### **Question 2: Other commonly used services**
 
-2. **Question 2:** Other commonly used services include:
-   - **HTTP Alternate (8080)** for web development.
-   - **RDP (3389)** for Remote Desktop access.
-   - **MySQL (3306)** for database connections.
-   
+- **HTTP Alternate**: Port 8080, often used in web development.
+- **RDP**: Port 3389, for Remote Desktop Protocol access.
+- **MySQL**: Port 3306, for database connections.
+
 ---
 
-#### Part II: HTTP Client
+### Part II: HTTP Client
 
-##### Part II.A: Playing with Your Browser
+---
 
-1. **Question 1.1**: **Wireshark Filtering** - Wireshark recognizes HTTP/HTTPS by monitoring the packets on ports 80 and 443. It uses the initial handshake and request lines (`GET`, `POST`, etc.) for HTTP and SSL/TLS packets for HTTPS.
+#### Part II.A: Playing with Your Browser
 
-2. **Question 1.2**: **Main resource requested** - When navigating to `http://example.org`, the main resource requested is the home page (`/`).
+##### **Question 1.1: How does Wireshark filter HTTP/HTTPS traffic?**
 
-3. **Question 1.3**: **HTTP Request Line** - The main request line would look something like:  
-   ```
-   GET / HTTP/2
-   ```
+Wireshark recognizes HTTP/HTTPS packets by analyzing traffic on ports 80 (HTTP) and 443 (HTTPS). It identifies HTTP packets based on request/response headers like `GET`, `POST`, or `HTTP/1.1`. HTTPS packets are distinguished by the SSL/TLS handshake.
 
-4. **Question 1.4**: **HTTP Response Line** - The main response line would be:
-   ```
-   HTTP/2 200
-   ```
-When i reloaded the page i got 
+##### **Question 1.2: What is the main resource requested?**
+
+When navigating to `http://example.org`, the main resource requested is the home page (`/`).
+
+##### **Question 1.3: What is the main HTTP request line?**
+
 ```
-HTTP/2 304
+GET / HTTP/2
 ```
-Which indicates that the page wasn't modified from the version that was already cached.
 
-5. **Question 1.5**: **Main Headers from Client**:
-   - `User-Agent`: Describes the browser and version (e.g., `Mozilla/5.0)`
-   - `Accept`: Specifies types of content the client can process (e.g., `text/html,application/xhtml+xml`)
-   - `Host`: Specifies the domain (e.g., `example.org`)
-   
-6. **Question 1.6**: **Main Headers from Server**:
-   - `Content-Type`: Indicates the format of the response data (e.g., `text/html`)
-   - `Content-Length`: Length of the response content
-   - `Server`: Server software and version (e.g., `ECAcc (dcd/7D32)`)
-   - `Kepp-Alive`: tells the client the server will keep the connection open for additional requests, specifying a timeout and max requests allowed.
+##### **Question 1.4: What is the main HTTP response line?**
 
-7. **Question 1.7 - 1.10**: **HTTP Authentication** 
-- When giving a wrong login/password we this packet:
-  `HTTP/1.1 401 Unauthorized`
-- When accessing the protected area, the server sends a `WWW-Authenticate` header prompting the client for credentials. The client then responds with an `Authorization` header (e.g., `Authorization: Basic <base64-encoded-message>`). This encoding (base64) is not secure over HTTP but becomes secure over HTTPS since it’s encrypted in transit.
-8. **Question 1.8: What are the main HTTP headers sent by the client**
+- Initial request:
+    
+    ```
+    HTTP/2 200
+    ```
+    
+- On reload with cached content:
+    
+    ```
+    HTTP/2 304
+    ```
+    
+    This indicates no modification since the last request.
+
+##### **Question 1.5: What are the main headers sent by the client?**
+
+- **`User-Agent`**: Provides details about the browser and operating system (e.g., `Mozilla/5.0`).
+- **`Accept`**: Lists the content types acceptable by the client (e.g., `text/html,application/xhtml+xml`).
+- **`Host`**: Specifies the server's domain name (e.g., `example.org`).
+
+##### **Question 1.6: What are the main headers sent by the server?**
+
+- **`Content-Type`**: Specifies the data format (e.g., `text/html`).
+- **`Content-Length`**: Indicates the size of the response body.
+- **`Server`**: Describes the server software and version.
+- **`Keep-Alive`**: States whether the connection will remain open for additional requests.
+
+---
+
+#### **HTTP Authentication**
+
+##### **Question 1.7: What are the server headers prompting for authentication?**
+
+The server sends the following response to request authentication:
+
 ```
-Authorization: Basic Zm9vYmFyOkkgbGlrZSBhcHBsZXM=\r\n
-    Credentials: foobar:I like apples
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Basic realm="Restricted Area"
 ```
-9. **Can this authentication being considered secure**
-No it is not secure since it is just encrypted in base64 and easily reversible.
-10. **Can this authentication be considered secure**
-It is secure since we don't have the authentication field, so we can't trace back the password.
-##### Part II.B: Command Line Clients
+
+##### **Question 1.8: What are the client headers for authentication?**
+
+The client responds with:
+
+```
+Authorization: Basic Zm9vYmFyOklfbGlrZV9hcHBsZXM=
+```
+
+This header encodes the credentials `foobar:I_like_apples` in Base64 format.
+
+##### **Question 1.9: Is this authentication secure over HTTP?**
+
+No, it is not secure. The credentials are only encoded in Base64, which is easily reversible. Without TLS, an attacker can intercept the credentials.
+
+##### **Question 1.10: Is this authentication secure over HTTPS?**
+
+Yes, it is secure. TLS encrypts the entire communication, preventing interception of the credentials.
+
+---
+
+
+####  Part II.B: Command Line Clients
 
 1. **Question 2.1**: **HTTP/Port Mapping** - The command `telnet <hostname> http` works by using `/etc/services`, where `http` is mapped to port 80.
 
@@ -171,19 +211,19 @@ simple_http_client("example.org")
 ```
 ---
 
-#### Part III: HTTP from a Server Perspective
+### Part III: HTTP from a Server Perspective
 
-##### Part III.A: HTTP Server with Netcat
+#### Part III.A: HTTP Server with Netcat
 
 1. **Question 3.1**: **Observation**
 - Netcat simply prints the HTTP request it receives. Any response, such as `HTTP/1.1 200 OK`, must be manually typed or scripted.
 
-##### Part III.B: Apache Web Server Setup
+#### Part III.B: Apache Web Server Setup
 
 1. **Question 3.2 - 3.4**: **Apache Test** 
 - Confirm Apache is running with `ss -tln | grep ':80'`. 
 - Accessing `localhost/test`  displays the contents of `test`, while `localhost/test2` shows a directory listing.
-##### Part III.C: Python Server
+#### Part III.C: Python Server
 ---
 
  **Question 3.5 - 3.7**: **Python Web Server Setup** - `python3 -m http.server 8080` This command starts a basic HTTP server on port 8080. It serves the contents of the current working directory, allowing a browser to access files via `http://localhost:8080`.
@@ -252,22 +292,23 @@ if auth != "Basic base64encodedcredentials":
 ```
  **Question 3.12: Can this authentication be considered secure?**
 - No, not without TLS. Basic Authentication sends the password in Base64, which can be decoded easily. TLS encrypts the communication, making it secure.
-**Question 3.13: How can you add a `/www/cookie` that displays and sets a cookie?** :-)
+**Question 3.13: How can you add a `/www/cookie` that displays and sets a cookie?** 
 ```python
 if "/www/cookie" in self.path:
     self.send_response(200)
     self.send_header("Content-Type", "text/html")
+    self.send_header("Set-Cookie", "user=example_cookie_value")
     self.end_headers()
     html_content = """
     <html>
         <body>
-            <h1>Here is your cookie!</h1>
-            <img src="https://example.com/cookie.png" alt="A delicious cookie" width="300">
+            <h1>Cookie Set!</h1>
         </body>
     </html>
     """
     self.wfile.write(html_content.encode("utf-8"))
     return
+
 ```
 
  **Question 3.14: What does the first command do?**
@@ -285,5 +326,173 @@ if "/www/cookie" in self.path:
 
 #### **Question 3.17: Is our previous authentication secure now?**
 - Yes, with TLS, the communication is encrypted, including the credentials sent in the `Authorization` header.
+
+---
+### Part IV: Going REST
+
+---
+
+#### **Question 4.1: What does the given code do? How does it compare to previous examples?**
+
+The provided code implements RESTful API using Flask.  features include:
+
+- A `GET` endpoint (`/hello`) returning a greeting.
+- A dynamic `GET` endpoint (`/hello/<name>`) responding with a personalized greeting.
+- A `POST` endpoint (`/hello`) processing form data and returning a greeting.
+
+**Comparison:**
+
+- Unlike earlier Python HTTP server examples, this code uses Flask.
+- It offers route-specific functionality.
+---
+
+#### **Question 4.2: Add a `/store` route to list objects in the store**
+
+```python
+@app.route("/store", methods=["GET"])
+def get_store():
+    return jsonify(storage)
+```
+
+This route returns the list of all objects in the `storage` dictionary as JSON.
+
+---
+
+#### **Question 4.3: Add a `/store/$x` route to get an object by its key**
+
+```python
+@app.route("/store/<key>", methods=["GET"])
+def get_object(key):
+    if key in storage:
+        return jsonify({key: storage[key]})
+    else:
+        abort(404) 
+```
+
+This route retrieves the object corresponding to the specified key, or returns a `404` error if the key is not found.
+
+---
+
+#### **Question 4.4: Add a `/store/` route to create a new object**
+
+```python
+@app.route("/store", methods=["POST"])
+def add_object():
+    key = request.form.get("key")
+    value = request.form.get("value")
+    if not key or not value:
+        abort(404)  
+    storage[key] = value
+    return jsonify({key: value})
+```
+
+This route allows users to send a `POST` request with form data to add a new object.
+
+---
+
+#### **Question 4.5: Add a `/store/$x` route to replace an object**
+
+```python
+@app.route("/store/<key>", methods=["POST"])
+def update_object(key):
+    value = request.form.get("value")
+    if not value:
+        abort(404)  
+    if key not in storage:
+        abort(404) 
+    storage[key] = value
+    return jsonify({key: value}), 200 
+```
+
+This route updates the value of an existing object.
+
+---
+
+#### **Question 4.6: Add a `/store/$x` route to delete an object**
+
+```python
+@app.route("/store/<key>", methods=["DELETE"])
+def delete_object(key):
+    if key in storage:
+        del storage[key]
+        return jsonify({"deleted"})  
+    else:
+        abort(404) 
+```
+
+This route removes the object associated with the given key.
+
+---
+
+#### **Question 4.7: Restrict modifications to authorized users**
+
+```python
+@app.before_request
+def check_token():
+    if request.method in ["POST", "DELETE"]:
+        token = request.form.get("token")
+        if token != "foobar":  
+            abort(404)  
+```
+
+
+
+---
+
+#### **Question 4.8: Use TLS for secure communication**
+
+Added the following to enable TLS:
+
+```python
+app.run("0.0.0.0", port=8443, debug=False, ssl_context="adhoc")
+```
+
+This ensures that all communication is encrypted. Without TLS, sensitive data can be intercepted.
+
+---
+
+#### **Question 4.9: Add a route to save the store object to a file**
+
+```python
+@app.route("/store/save", methods=["POST"])
+def save_store():
+    with open("store.json", "w") as f:
+        json.dump(storage, f)
+    return jsonify({"Store saved"})
+
+@app.before_first_request
+def load_store():
+    try:
+        with open("store.json", "r") as f:
+            global storage
+            storage = json.load(f)
+    except FileNotFoundError:
+        pass  
+```
+
+
+
+---
+
+#### **Question 4.10: Use `http.cat` for error handling**
+
+Update error handling to use `http.cat` for user-friendly error pages:
+
+```python
+@app.errorhandler(404)
+def not_found(error):
+    return '<img src="https://http.cat/404" alt="404 Not Found">', 404
+
+@app.errorhandler(403)
+def forbidden(error):
+    return '<img src="https://http.cat/403" alt="403 Forbidden">', 403
+
+@app.errorhandler(400)
+def bad_request(error):
+    return '<img src="https://http.cat/400" alt="400 Bad Request">', 400
+etc ...
+```
+
+
 
 ---

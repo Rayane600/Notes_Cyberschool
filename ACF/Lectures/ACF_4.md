@@ -25,6 +25,4 @@
 **Sledgehammer:**
 - Automatically calls external theorem provers (e.g., SPASS, E, Vampire).
 - Example usage: `sledgehammer [timeout=120]`
----
-
- <
+--- 
