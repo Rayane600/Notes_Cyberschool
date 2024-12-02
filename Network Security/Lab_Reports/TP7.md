@@ -183,5 +183,3 @@ When we increment the ttl
     - Script functionality and improvements should be discussed.
 
 ---
-
-Feel free to adapt or expand these answers in your Obsidian notes!
