@@ -1,3 +1,0 @@
-- peut être essayer de recompiler PAM pour voir si des fonctions sont appelées (GCOV pour des graphs de couverture)
-- https://gcc.gnu.org/onlinedocs/gcc/Gcov.html
-- 
