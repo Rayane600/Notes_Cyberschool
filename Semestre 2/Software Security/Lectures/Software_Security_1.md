@@ -1,4 +1,4 @@
-# Lecture 1/2
+# Lecture 1/3
 
 ## Standardization and Evolution
 
@@ -79,7 +79,7 @@ Depending on the byte order (endianness), `y` might have different values.
 
 ### Compound Literals
 
-- Temporary objects stored in memory (usually within a function scope).
+- Temporary and unnamed objects stored in memory (usually within a function scope).
 - Example:
     
     ```c
@@ -174,6 +174,24 @@ int main() {
     ptr = &x;
     ```
     
+## Namespaces in C
+
+C organizes identifiers into **four separate namespaces**, allowing different types of identifiers to share the same name without conflict:
+
+1. **Label Namespace** – Contains `goto` labels (unique within a function).
+2. **Tag Namespace** – Contains names of `struct`, `union`, and `enum` types.
+3. **Member Namespace** – Each `struct` or `union` has its own namespace for member names.
+4. **Ordinary Identifiers** – Includes variable names, function names, `typedef` names, and enumeration constants.
+
+### Namespace Lookup
+- The compiler determines an identifier's namespace based on its usage.
+- Different namespaces allow the same name to be used in multiple contexts without conflict.
+
+### Using `typedef` to Inject Tag Names
+`typedef` can bring `struct` and `union` names into the ordinary identifier namespace:
+```c
+typedef struct Point { int x, y; } Point;
+Point p1;  // Now "Point" is a valid type without needing "struct"
 
 ## Definitions vs Declarations
 

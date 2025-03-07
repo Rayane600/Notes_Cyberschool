@@ -1,4 +1,4 @@
-# Software Security - Course Notes
+# Lecture 2/3
 
 ---
 
