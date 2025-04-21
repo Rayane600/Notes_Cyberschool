@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Semestre 2/SE/Labs/Lab_Buffer_overflow.md",
+                "file": "Semestre 2/EMS/Cours 4.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lab_Buffer_overflow"
+              "title": "Cours 4"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 212.5
+    "width": 200
   },
   "right": {
     "id": "93c79a0e99957f8c",
@@ -165,44 +165,44 @@
   },
   "active": "3a5ea3e510df4f15",
   "lastOpenFiles": [
-    "Semestre 2/SE/Labs/Lab_Shellcodes.md",
-    "Semestre 2/Anglais/Conference Bullet points.md",
-    "Semestre 2/Research_Project/Thesis synthesis.md",
-    "Semestre 2/SEA/CM/Cours 5.md",
+    "Stage M2/Entreprises qui recrutent.md",
+    "Semestre 2/SE/Lectures/Lecture 5.md",
+    "Semestre 2/SEA/CM/Cours 6.md",
     "Semestre 2/SEA/CM/Cours 4.md",
+    "Semestre 2/SEA/CM/Cours 5.md",
     "Semestre 2/SEA/CM/Cours 3.md",
     "Semestre 2/SEA/CM/Cours 2.md",
     "Semestre 2/SEA/CM/Cours 1.md",
-    "Semestre 2/Software Security/Labs/Untitled.md",
-    "Semestre 2/SE/Reports HTB.md",
-    "Semestre 2/Research_Project",
+    "Semestre 2/SE/Lectures/Lecture 4.md",
+    "Semestre 2/SE/Lectures/Lecture 3.md",
+    "Semestre 2/SE/Lectures/Lecture 2.md",
+    "Semestre 2/SE/Labs/Format String Bugs.md",
     "Semestre 2/SE/Lectures/Lecture 1 (Useless stuff).md",
-    "Semestre 2/SE/Labs/Nebula (unfinished).md",
-    "Semestre 2/SE/Labs/Lab_Buffer_overflow.md",
-    "Semestre 2/Software Security/Lectures/Software_Security_4.md",
-    "Semestre 2/Software Security/Lectures/Software_Security_3.md",
+    "Semestre 2/Software Security/Labs/Lab_9.md",
+    "Semestre 2/Software Security/Labs/Lab_8.md",
+    "Semestre 2/Software Security/Labs/ELF Headers and sections.md",
     "Semestre 2/Software Security/Lectures/Software_Security_2.md",
-    "Semestre 2/Software Security/Labs/Lab 3.md",
-    "Semestre 2/Anglais",
+    "Semestre 2/Software Security/Lectures/Software_Security_3.md",
+    "Semestre 2/Software Security/Lectures/Software_Security_4.md",
+    "Semestre 2/Software Security/Lectures/Software_Security_5.md",
+    "Semestre 2/SE/Labs/Lab_Buffer_overflow.md",
+    "Semestre 2/EMS/TP/Projet.md",
+    "Stage M2",
     "Semestre 2/Software Security/Lectures/Software_Security_1.md",
-    "Semestre 2/EMS/Cours 4.md",
-    "Semestre 2/EMS/Cours 3.md",
-    "Semestre 2/EMS/Cours 1.md",
-    "Semestre 2/ResearchProject/Important bullet points for next session..md",
-    "Semestre 2/SEA/Questionnaire.md",
+    "Semestre 2/Research_Project/Thesis synthesis.md",
+    "Semestre 2/Research_Project/Resilient Self-Debugging Software Protection.md",
+    "Semestre 2/Anglais/Conference Bullet points.md",
+    "Semestre 2/Research_Project",
+    "Semestre 2/Anglais",
     "Pasted image 20250217143443.png",
     "Semestre 2/SE/Labs",
-    "Semestre 2/SE/Untitled.md",
     "Semestre 2/Software Security/Labs",
-    "Semestre 2/EMS/Cours 2.md",
     "Semestre 2",
     "Semestre 1",
-    "SE/Untitled.md",
     "Winter School",
     "Semestre 2/SE/Lectures",
     "Semestre 2/EMS/TP",
     "EMS/Pasted image 20250129164544.png",
-    "Semestre 2/ResearchProject",
     "Semestre 1/System Security/Lecture/Pasted image 20241119144530.png"
   ]
 }

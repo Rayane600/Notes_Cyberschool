@@ -1,7 +1,7 @@
 
 
 
-### **Linux (Intel) Anti-Debugging Techniques**
+# Linux (Intel) Anti-Debugging Techniques
 
 #### **1. Exception-based Techniques**
 
@@ -77,3 +77,178 @@ ARM differs from Intel in instruction set and debugging mechanisms, requiring mo
     - The program encrypts **sensitive memory sections** to prevent debugger analysis.
 
 ---
+# Experimental Setup
+
+## **1.The setup**
+### **Linux (Intel) Experiments**
+
+- **Test Environment:** Virtualized **Ubuntu 22.04.1 LTS (kernel 5.15.0-91-generic)** on **VMWare Workstation 16.2.5**.
+- **Specs:** 2 vCPUs, 4GB RAM, 100GB disk.
+- **Execution:**
+    - Same methodology as Windows (1010 runs, 10 discarded).
+    - Serial execution to minimize context switching.
+
+### **Linux (ARM) Experiments**
+
+- **Test Environment:** Virtualized **Ubuntu 22.04 LTS (kernel 6.1, arm64)** on **AWS t4g.medium node**.
+- **Specs:** 2 vCPUs, 4GB RAM, 30GB SSD.
+- **Execution:**
+    - **Same methodology as above**.
+    - Adaptations for ARM-specific behaviors (detailed below).
+
+---
+
+## **2.Experiment Implementation**
+
+Each experiment applied an **anti-debugging technique** and measured execution performance. The **same base test program** was executed to compare against a version with anti-debugging enabled.
+
+- **Linux (Intel) tests compiled with** `gcc` 11.4.0.
+- **Linux (ARM) tests compiled with** `aarch64-linux-gnu-g++-11` 11.4.0.
+
+After data collection:
+
+- Logs were converted to **Pandas DataFrames**.
+- Statistical analysis was performed using **Mann-Whitney U test** (median comparison) and **Levene test** (variance comparison).
+
+### **ARM-Specific Adaptations**
+
+- The **`INT3` instruction (breakpoint)** does not exist in ARM; instead, **`BRK` was used**, which halts execution permanently.
+- **Single-Step Debugging (Trap Flag)** is **not modifiable in user mode** on ARM, affecting certain anti-debugging techniques.
+
+---
+
+## **3. Experiment Results**
+
+For each test, execution time was recorded, and **three statistical analyses** were performed:
+
+1. **Distribution graphs** for data visualization.
+2. **Mann-Whitney U test** to check for median differences.
+3. **Levene test** to compare variance.
+
+### **Linux (Intel) Results**
+
+- Many techniques had **consistent performance variance**.
+- Certain methods, like **memory encryption checks**, showed **strong detection differences** from baseline.
+
+### **Linux (ARM) Results**
+
+- ARM had **significant implementation differences** due to the **lack of certain CPU features**.
+- **INT3-equivalent tests were replaced with `SIGTRAP`**.
+- Some tests, like **self-debugging**, failed due to ARM limitations.
+
+---
+
+## **4. Artifact Experiment**
+
+A final experiment tested the **artifact’s ability** to detect anti-debugging techniques from collected performance data.
+
+- Implemented in **Python 3.10.7**.
+- Used **Levene’s test** to compare **new sample data** with pre-collected anti-debugging models.
+- **Three sample execution durations** were tested:
+    - **Fast sample (1000 iterations)**
+    - **Medium sample (10,000 iterations)**
+    - **Slow sample (100,000 iterations)**
+- **Detection success varied** across techniques, with some working in fast/medium tests but failing in slow tests due to execution time variance.
+
+---
+
+## **Key points for Reimplementation**
+
+### **General Implementation Notes**
+
+- **Use a serial execution model** to prevent performance interference.
+- **Compile appropriately** (`gcc` for Intel, `aarch64-linux-gnu-g++` for ARM).
+- **Run at least 1010 iterations** to normalize cache behavior.
+- **Ensure adaptation for architecture-specific constraints** (e.g., handling `INT3` differently on ARM).
+
+### **Anti-Debugging Techniques Considerations**
+
+- **Timing-based anti-debugging** is significantly different across platforms.
+- **Exception-based methods (e.g., UnhandledExceptionFilter)** work well on Windows but have **Linux-specific implementation differences**.
+- **Memory-based detection techniques** (e.g., `NtGlobalFlag`) are highly dependent on OS API access.
+
+### **Detection and Evaluation**
+
+- **Mann-Whitney U test** is effective for detecting median execution time differences.
+- **Levene test** is useful for identifying variance in execution.
+- **ARM has significant limitations** in debugging control, requiring alternative approaches.
+
+---
+# Summary of Research Achievements
+## **1.General summary**
+
+- The research **implemented 58 anti-debugging techniques** across different OS and architectures.
+- A **dataset of performance metrics** for these techniques was generated.
+- Performance data was used to create **statistical models** for each technique per OS and architecture.
+- An **artifact** was developed to detect anti-debugging methods based on execution performance analysis.
+- The artifact **successfully identified 27 out of 58 techniques** with some degree of sensitivity to execution duration variance.
+- **7 of those 27 techniques** were found to be **insensitive to variance**, making them the most reliable detections.
+
+### **General Observations**
+
+- **Windows techniques** were the **least sensitive** to execution variance but often **unviable** due to API dependencies.
+- **Linux (Intel) and Linux (ARM) techniques** generally fell in the middle, with varying levels of sensitivity.
+
+---
+
+## **2. Comparison of Anti-Debugging Techniques Across OS & Architectures**
+
+### **Windows vs. Linux (Intel)**
+
+- **Code Checksum Technique**:
+    
+    - Windows implementation had **high variance**, making it easily detectable.
+    - Linux implementation was **consistent** with minimal variance, making detection harder.
+    - The artifact successfully detected Windows checksum manipulation in **all samples**, while Linux was detected in **only one sample**.
+- **Process Enumeration Technique**:
+    
+    - Similar across OS, but Windows showed **more variance** in execution times.
+    - The artifact **only detected the technique in medium-duration tests** on Windows but **failed on Linux**.
+- **Self-Debugging**:
+    
+    - Failed to be detected in any sample across both OS.
+    - Declared **unviable for artifact-based detection**.
+
+### **Linux (Intel) vs. Linux (ARM)**
+
+- **Clock Anti-Debugging Techniques (e.g., `RDTSC`)**:
+    
+    - Linux (Intel) version was highly sensitive to execution duration variance.
+    - **ARM implementation (`CNTVCT_EL0`)** was similarly sensitive but less reliable in detection.
+    - **Artifact detected the ARM version only in the slow sample**.
+- **Memory Encryption Checks**:
+    
+    - **Failed across both architectures**, meaning it was **unviable for detection**.
+- **INT3 and `SIGTRAP` Scanning**:
+    
+    - Worked well on Intel but was **problematic on ARM** due to architectural differences.
+
+---
+
+## **3. Classification of Techniques Based on Sensitivity**
+
+|Sensitivity Level|Description|Techniques|
+|---|---|---|
+|**Unviable**|Not detectable due to insufficient variance|Memory Encryption, Self-Debugging|
+|**Very Sensitive**|Detected but highly impacted by execution variance|Clock-based techniques (`RDTSC`, `CNTVCT_EL0`)|
+|**Mildly Sensitive**|Detectable with moderate variance sensitivity|Code Obfuscation, Process Enumeration|
+|**Insensitive**|Detected consistently across all samples|Code Checksum (Windows)|
+
+---
+
+## **4. Future Work**
+
+- **Enhancing Detection Models**: Improve statistical modeling for low-variance techniques.
+- **Expanding Architectures**: Extend research to other architectures like **RISC-V, PowerPC, and MIPS**.
+- **Kernel-Level Anti-Debugging**: Study kernel-mode anti-debugging techniques.
+
+---
+
+## **Key Takeaways for Reimplementation**
+
+- **Techniques with high variance** (e.g., Windows checksum methods) are **easier to detect**.
+- **Linux implementations are more stable**, requiring **better statistical models for detection**.
+- **ARM presents significant challenges**, mainly due to:
+    - **Lack of some x86 debugging instructions** (e.g., `INT3`).
+    - **Different CPU cycle measurement techniques**.
+- **The artifact is most effective for techniques that are insensitive to variance**.
